@@ -1,8 +1,7 @@
 package memory
 
 import (
-	"github.com/MaksimDzhangirov/DDD-and-go/aggregate"
-	"github.com/MaksimDzhangirov/DDD-and-go/domain/customer"
+	"github.com/MaksimDzhangirov/tavern/domain/customer"
 	"github.com/google/uuid"
 	"testing"
 )
@@ -15,7 +14,7 @@ func TestMemory_GetCustomer(t *testing.T) {
 	}
 
 	// создаём тестового клиента для добавления в репозиторий
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -23,7 +22,7 @@ func TestMemory_GetCustomer(t *testing.T) {
 	// Создаём репозиторий, который будем использовать, а также добавляем в него некоторые тестовые данные
 	// Здесь мы не используем фабрику
 	repo := MemoryRepository{
-		customers: map[uuid.UUID]aggregate.Customer{
+		customers: map[uuid.UUID]customer.Customer{
 			id: cust,
 		},
 	}
@@ -68,10 +67,10 @@ func TestMemory_AddCustomer(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			repo := MemoryRepository{
-				customers: map[uuid.UUID]aggregate.Customer{},
+				customers: map[uuid.UUID]customer.Customer{},
 			}
 
-			cust, err := aggregate.NewCustomer(tc.cust)
+			cust, err := customer.NewCustomer(tc.cust)
 			if err != nil {
 				t.Fatal(err)
 			}

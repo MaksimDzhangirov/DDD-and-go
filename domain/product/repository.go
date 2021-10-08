@@ -3,7 +3,6 @@ package product
 
 import (
 	"errors"
-	"github.com/MaksimDzhangirov/DDD-and-go/aggregate"
 	"github.com/google/uuid"
 )
 
@@ -16,9 +15,9 @@ var (
 
 // ProductRepository - это интерфейс, которому должен удовлетворять репозиторий, использующий агрегат товара
 type ProductRepository interface {
-	GetAll() ([]aggregate.Product, error)
-	GetByID(id uuid.UUID) (aggregate.Product, error)
-	Add(product aggregate.Product) error
-	Update(product aggregate.Product) error
+	GetAll() ([]Product, error)
+	GetByID(id uuid.UUID) (Product, error)
+	Add(product Product) error
+	Update(product Product) error
 	Delete(id uuid.UUID) error
 }

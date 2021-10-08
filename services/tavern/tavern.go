@@ -1,6 +1,7 @@
-package services
+package tavern
 
 import (
+	"github.com/MaksimDzhangirov/tavern/services/order"
 	"github.com/google/uuid"
 	"log"
 )
@@ -10,7 +11,7 @@ type TavernConfiguration func(os *Tavern) error
 
 type Tavern struct {
 	// OrderService используется для работы с заказами
-	OrderService *OrderService
+	OrderService *order.OrderService
 	// BillingService используется для работы со счетами
 	// Вы можете реализовать его сами
 	BillingService interface{}
@@ -32,7 +33,7 @@ func NewTavern(cfgs ...TavernConfiguration) (*Tavern, error) {
 }
 
 // WithOrderService передаёт заданный OrderService в Tavern
-func WithOrderService(os *OrderService) TavernConfiguration {
+func WithOrderService(os *order.OrderService) TavernConfiguration {
 	// возвращает функцию, чья сигнатура совпадает с TavernConfiguration
 	return func(t *Tavern) error {
 		t.OrderService = os

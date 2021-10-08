@@ -1,4 +1,4 @@
-module github.com/MaksimDzhangirov/DDD-and-go
+module github.com/MaksimDzhangirov/tavern
 
 go 1.16
 

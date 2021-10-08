@@ -1,5 +1,5 @@
 // Сущности внутри пакета являются общими для всех подобластей
-package entity
+package tavern
 
 import (
 	"github.com/google/uuid"

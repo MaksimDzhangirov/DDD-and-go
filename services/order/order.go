@@ -1,14 +1,13 @@
 // Пакет Service содержит все сервисы, которые объединяя репозитории, создают бизнес-логику
-package services
+package order
 
 import (
 	"context"
-	"github.com/MaksimDzhangirov/DDD-and-go/aggregate"
-	"github.com/MaksimDzhangirov/DDD-and-go/domain/customer"
-	"github.com/MaksimDzhangirov/DDD-and-go/domain/customer/memory"
-	"github.com/MaksimDzhangirov/DDD-and-go/domain/customer/mongo"
-	"github.com/MaksimDzhangirov/DDD-and-go/domain/product"
-	prodmemory "github.com/MaksimDzhangirov/DDD-and-go/domain/product/memory"
+	"github.com/MaksimDzhangirov/tavern/domain/customer"
+	"github.com/MaksimDzhangirov/tavern/domain/customer/memory"
+	"github.com/MaksimDzhangirov/tavern/domain/customer/mongo"
+	"github.com/MaksimDzhangirov/tavern/domain/product"
+	prodmemory "github.com/MaksimDzhangirov/tavern/domain/product/memory"
 	"github.com/google/uuid"
 	"log"
 )
@@ -71,7 +70,7 @@ func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
 	}
 }
 
-func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
+func WithMemoryProductRepository(products []product.Product) OrderConfiguration {
 	return func(os *OrderService) error {
 		// Создаём репозиторий, хранящий данные в памяти, если нам нужно задать
 		// параметры, например, соединения с базой данных, они могут быть добавлены
@@ -100,7 +99,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	}
 
 	// Получаем информацию о каждом товаре, ой, нам нужен ProductRepository
-	var products []aggregate.Product
+	var products []product.Product
 	var price float64
 	for _, id := range productIDs {
 		p, err := o.products.GetByID(id)
@@ -115,4 +114,19 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	log.Printf("Customer: %s has ordered %d products", c.GetID(), len(products))
 
 	return price, nil
+}
+
+// AddCustomer добавит нового клиента и вернёт customerID
+func (o *OrderService) AddCustomer(name string) (uuid.UUID, error) {
+	c, err := customer.NewCustomer(name)
+	if err != nil {
+		return uuid.Nil, err
+	}
+	// Добавляем в репозиторий
+	err = o.customers.Add(c)
+	if err != nil {
+		return uuid.Nil, err
+	}
+
+	return c.GetID(), nil
 }

@@ -1,12 +1,10 @@
 // Агрегаты пакета хранят агрегаты, объединяющие несколько сущностей в один объект
-package aggregate
+package customer
 
 import (
 	"errors"
+	"github.com/MaksimDzhangirov/tavern"
 	"github.com/google/uuid"
-
-	"github.com/MaksimDzhangirov/DDD-and-go/entity"
-	"github.com/MaksimDzhangirov/DDD-and-go/valueobject"
 )
 
 var (
@@ -19,11 +17,11 @@ var (
 type Customer struct {
 	// person - это корневая сущность клиента
 	// т. е. person.ID - это основной идентификатор для этого агрегата
-	person *entity.Person
+	person *tavern.Person
 	// клиент может купить несколько товаров
-	products []*entity.Item
+	products []*tavern.Item
 	// клиент может осуществлять множество транзакций
-	transactions []valueobject.Transaction
+	transactions []tavern.Transaction
 }
 
 // NewCustomer - это фабрика для создания нового агрегата Customer
@@ -35,7 +33,7 @@ func NewCustomer(name string) (Customer, error) {
 	}
 
 	// Создаём новый экземпляр person и генерируем ID
-	person := &entity.Person{
+	person := &tavern.Person{
 		Name: name,
 		ID:   uuid.New(),
 	}
@@ -43,8 +41,8 @@ func NewCustomer(name string) (Customer, error) {
 	// чтобы избежать исключений, связанные со ссылкой на нулевой указатель
 	return Customer{
 		person:       person,
-		products:     make([]*entity.Item, 0),
-		transactions: make([]valueobject.Transaction, 0),
+		products:     make([]*tavern.Item, 0),
+		transactions: make([]tavern.Transaction, 0),
 	}, nil
 }
 
@@ -56,7 +54,7 @@ func (c *Customer) GetID() uuid.UUID {
 // SetID присваивает ID корневой сущности
 func (c *Customer) SetID(id uuid.UUID) {
 	if c.person == nil {
-		c.person = &entity.Person{}
+		c.person = &tavern.Person{}
 	}
 	c.person.ID = id
 }
@@ -64,7 +62,7 @@ func (c *Customer) SetID(id uuid.UUID) {
 // SetName назначает имя для клиента
 func (c *Customer) SetName(name string) {
 	if c.person == nil {
-		c.person = &entity.Person{}
+		c.person = &tavern.Person{}
 	}
 	c.person.Name = name
 }

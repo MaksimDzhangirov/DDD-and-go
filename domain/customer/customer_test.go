@@ -1,8 +1,9 @@
-package aggregate_test
+package customer_test
 
 import (
-	"github.com/MaksimDzhangirov/DDD-and-go/aggregate"
 	"testing"
+
+	"github.com/MaksimDzhangirov/tavern/domain/customer"
 )
 
 func TestCustomer_NewCustomer(t *testing.T) {
@@ -17,7 +18,7 @@ func TestCustomer_NewCustomer(t *testing.T) {
 		{
 			test:        "Empty Name validation",
 			name:        "",
-			expectedErr: aggregate.ErrInvalidPerson,
+			expectedErr: customer.ErrInvalidPerson,
 		}, {
 			test:        "Valid Name",
 			name:        "Percy Bolmer",
@@ -29,7 +30,7 @@ func TestCustomer_NewCustomer(t *testing.T) {
 		// Запускаем тесты
 		t.Run(tc.test, func(t *testing.T) {
 			// Создаём нового клиента
-			_, err := aggregate.NewCustomer(tc.name)
+			_, err := customer.NewCustomer(tc.name)
 			// Проверяем, соответствует ли ошибка ожидаемой
 			if err != tc.expectedErr {
 				t.Errorf("Expected error %v, got %v", tc.expectedErr, err)

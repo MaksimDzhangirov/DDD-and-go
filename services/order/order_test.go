@@ -1,26 +1,27 @@
-package services
+package order
 
 import (
+	"github.com/MaksimDzhangirov/tavern/domain/customer"
+	"github.com/MaksimDzhangirov/tavern/domain/product"
 	"testing"
 
-	"github.com/MaksimDzhangirov/DDD-and-go/aggregate"
 	"github.com/google/uuid"
 )
 
-func init_products(t *testing.T) []aggregate.Product {
-	beer, err := aggregate.NewProduct("Beer", "Healthy Beverage", 1.99)
+func init_products(t *testing.T) []product.Product {
+	beer, err := product.NewProduct("Beer", "Healthy Beverage", 1.99)
 	if err != nil {
 		t.Error(err)
 	}
-	peanuts, err := aggregate.NewProduct("Peanuts", "Healthy Snacks", 0.99)
+	peanuts, err := product.NewProduct("Peanuts", "Healthy Snacks", 0.99)
 	if err != nil {
 		t.Error(err)
 	}
-	wine, err := aggregate.NewProduct("Wine", "Healthy Snacks", 0.99)
+	wine, err := product.NewProduct("Wine", "Healthy Snacks", 0.99)
 	if err != nil {
 		t.Error(err)
 	}
-	products := []aggregate.Product{
+	products := []product.Product{
 		beer, peanuts, wine,
 	}
 	return products
@@ -39,7 +40,7 @@ func TestOrder_NewOrderService(t *testing.T) {
 	}
 
 	// Добавляем клиента
-	cust, err := aggregate.NewCustomer("Percy")
+	cust, err := customer.NewCustomer("Percy")
 	if err != nil {
 		t.Error(err)
 	}
