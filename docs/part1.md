@@ -1,6 +1,7 @@
-# Реализация предметно-ориентированное проектирования в Golang
+# Реализация предметно-ориентированного проектирования в Golang
 
 ![intro](images/part1/intro.png)
+
 *Рисунок создан Percy Bolmér. Gopher - Takuya Ueda, оригинальный Go gopher - Renée French (CC BY 3.0)*
 
 В последние годы микросервисы стали очень популярным подходом при создании 
@@ -25,6 +26,7 @@
 ниже рисунок, вероятно, поможет вам это понять.
 
 ![diagram](images/part1/diagram.png)
+
 *Ключевые понятия в DDD - Граф из книги Эрика Эванса Предметно-ориентированное
 проектирование: структуризация сложных программных систем*
 
@@ -77,8 +79,8 @@ DDD пропагандирует, чтобы группа разработчик
 
 ![journey](images/part1/journey.png)
 
-Два gophera отмечают успешное сотрудничество. Gopher создан Takuya Ueda, 
-оригинальный Go gopher - Renée French.
+*Два gophera отмечают успешное сотрудничество. Gopher создан Takuya Ueda, 
+оригинальный Go gopher - Renée French.*
 
 ## История Gophera с точки зрения DDD
 
@@ -135,6 +137,7 @@ DDD пропагандирует, чтобы группа разработчик
 ## Программируем DDD приложение на Go - сущности и объекты-значения
 
 ![journey](images/part1/entity.png)
+
 *Отличия сущностей от объектов-значений. Gopher создан Takuya Ueda,
 оригинальный Go gopher - Renée French.*
 
@@ -234,6 +237,7 @@ type Transaction struct {
 ## Агрегаты — объединение сущностей и объектов-значений
 
 ![aggregate](images/part1/agregate.png)
+
 *Агрегаты — объединение сущностей и объектов-значений*
 
 Пришло время взглянуть на следующую составляющую DDD - агрегаты. Агрегат — 
@@ -310,6 +314,7 @@ type Customer struct {
 ## Фабрики — содержат внутри себя сложную логику
 
 ![factories](images/part1/factories.png)
+
 *Фабрика — это шаблон проектирования для создания сложных агрегатов, репозиториев 
 или сервисов. Gopher - Takuya Ueda, оригинальный Go gopher - Renée French*
 
@@ -539,6 +544,7 @@ func TestCustomer_NewCustomer(t *testing.T) {
 ## Репозитории — шаблон проектирования Репозиторий (Хранилище) (Repository)
 
 ![repositories](images/part1/repositories.png)
+
 *Интерфейсы репозитория, используемые для скрытия деталей реализации.
 Gopher - Takuya Ueda, оригинальный Go gopher - Renée French*
 
@@ -852,6 +858,7 @@ func TestMemory_AddCustomer(t *testing.T) {
 ## Сервисы — объединяем бизнес-логику
 
 ![services](images/part1/services.png)
+
 *Сервисы — объединяем репозитории для создания реальной бизнес-логики. 
 Gopher - Takuya Ueda, оригинальный Go gopher - Renée French*
 
@@ -991,6 +998,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 ## ProductRepository - последняя составляющая "Таверны"
 
 ![product](images/part1/product.png)
+
 *Product Repository - используется для работы с агрегатом Product. 
 Gopher - Takuya Ueda, оригинальный Go gopher - Renée French*
 
@@ -1464,6 +1472,7 @@ func TestOrder_NewOrderService(t *testing.T) {
 ## Таверна — сервис, который состоит из подсервисов, и MongoDB
 
 ![tavern](images/part1/tavern.png)
+
 *Таверна — окончательный вариант решения. Gopher - Takuya Ueda, оригинальный Go gopher - Renée French*
 
 Последнее, что мы рассмотрим, - это сервис `Tavern`. Этот сервис будет содержать
@@ -1776,7 +1785,8 @@ func Test_Tavern(t *testing.T) {
 ## Заключение
 
 ![conclusion](images/part1/conclusion.png)
-*Конец первой статьи. Gopher - Takuya Ueda, оригинальный Go gopher - Renée French
+
+*Конец первой статьи. Gopher - Takuya Ueda, оригинальный Go gopher - Renée French*
 
 В этой статье мы вкратце рассмотрели основы предметно-ориентированного 
 проектирования.
@@ -1784,7 +1794,7 @@ func Test_Tavern(t *testing.T) {
 * **Entities** (**Сущности**) - изменяемые идентифицируемые структуры.
 * **Value Objects** (**Объекты-значения**) - неизменяемые неидентифицируемые 
   структуры.
-* **Aggregates** (**Агрегат**) - совокупность сущностей и объектов-значений, 
+* **Aggregates** (**Агрегаты**) - совокупность сущностей и объектов-значений, 
   хранимая в репозитории.  
 * **Repository** (**Репозиторий**) - реализация, сохраняющая агрегаты или другую информацию
 * **Factory** (**Фабрика**) - конструктор для создания сложных объектов и упрощает 
